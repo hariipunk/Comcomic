@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Baca komik online gratis di Comcomic. Ribuan komik populer seperti One Piece, Naruto, Attack on Titan, dan lainnya.">
+  <meta name="keywords" content="baca komik, komik online, manga, manhwa, manhua, webtoon, komik gratis">
+  <meta name="theme-color" content="#0D0D0D">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <h1 class="logo">Comcomic</h1>
+      </header>
+
+      <!-- Top Komik Section -->
+      <section class="top-komik-section">
+        <div class="top-komik-card">
+          <div class="top-komik-content">
+            <div class="rank-badge">Rank: <%= topComic.rank %></div>
+            <h2 class="top-komik-title"><%= topComic.title %></h2>
+            <div class="top-komik-genres">
+              <%= topComic.genres.slice(0, 3).join(', ') %>
+            </div>
+            <a href="/comic/<%= topComic.slug %>" class="btn-read-now">Baca Sekarang</a>
+          </div>
+          <div class="top-komik-cover">
+            <img src="<%= topComic.cover %>" alt="<%= topComic.title %>">
+          </div>
+        </div>
+      </section>
+
+      <!-- Komik Populer Section with Tabs -->
+      <section class="comics-section">
+        <%- include('components/section_title', { title: 'Komik' }) %>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="popular">Populer</button>
+          <button class="tab-btn" data-tab="ongoing">Berjalan</button>
+          <button class="tab-btn" data-tab="recommended">Disarankan</button>
+        </div>
+
+        <!-- Popular Tab -->
+        <div class="tab-content active" id="popular-tab">
+          <div class="comics-grid">
+            <% popularComics.forEach(comic => { %>
+              <%- include('components/comic_card', { comic }) %>
+            <% }); %>
+          </div>
+        </div>
+
+        <!-- Ongoing Tab -->
+        <div class="tab-content" id="ongoing-tab">
+          <div class="comics-grid">
+            <% ongoingComics.forEach(comic => { %>
+              <%- include('components/comic_card', { comic }) %>
+            <% }); %>
+          </div>
+        </div>
+
+        <!-- Recommended Tab -->
+        <div class="tab-content" id="recommended-tab">
+          <div class="comics-grid">
+            <% recommendedComics.forEach(comic => { %>
+              <%- include('components/comic_card', { comic }) %>
+            <% }); %>
+          </div>
+        </div>
+      </section>
+
+      <!-- Genre Collection Section -->
+      <section class="genres-section">
+        <%- include('components/section_title', { title: 'Kumpulan Genre' }) %>
+
+        <div class="genres-list">
+          <% genres.forEach(genre => { %>
+            <%- include('components/genre_badge', { genre }) %>
+          <% }); %>
+        </div>
+      </section>
+
+      <!-- New Comics Section -->
+      <section class="new-comics-section">
+        <%- include('components/section_title', { title: 'Komik Baru' }) %>
+
+        <div class="horizontal-scroll">
+          <% newComics.forEach(comic => { %>
+            <%- include('components/comic_card', { comic }) %>
+          <% }); %>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <%- include('components/bottom_nav') %>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

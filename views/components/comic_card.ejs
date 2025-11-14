@@ -1,0 +1,11 @@
+<div class="comic-card">
+  <a href="/comic/<%= comic.slug %>">
+    <div class="comic-cover">
+      <img src="<%= comic.cover %>" alt="<%= comic.title %>" loading="lazy">
+      <%- include('rating_badge', { rating: comic.rating }) %>
+    </div>
+    <div class="comic-info">
+      <h3 class="comic-title"><%= comic.title %></h3>
+    </div>
+  </a>
+</div>
