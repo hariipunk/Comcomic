@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0D0D0D">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Riwayat Baca</h1>
+      </div>
+
+      <!-- History List -->
+      <div class="history-list">
+        <% if (history.length > 0) { %>
+          <% history.forEach(comic => { %>
+            <div class="history-item">
+              <a href="/comic/<%= comic.slug %>" class="history-link">
+                <div class="history-cover">
+                  <img src="<%= comic.cover %>" alt="<%= comic.title %>">
+                </div>
+                <div class="history-info">
+                  <h3 class="history-title"><%= comic.title %></h3>
+                  <div class="history-chapter">Chapter <%= comic.lastRead.chapter %></div>
+                  <div class="history-time">
+                    <%= new Date(comic.lastRead.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                  </div>
+                </div>
+              </a>
+              <div class="history-actions">
+                <a href="/comic/<%= comic.slug %>/chapter/<%= comic.lastRead.chapter %>" class="btn-continue">Lanjut Baca</a>
+                <button class="btn-remove-history" data-comic-id="<%= comic.id %>">Hapus</button>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <div class="empty-state">
+            <img src="https://i.imgur.com/XqQXQ0Y.png" alt="Empty" class="empty-image">
+            <p class="empty-text">Belum ada riwayat baca</p>
+            <a href="/" class="btn-primary">Mulai Baca</a>
+          </div>
+        <% } %>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <%- include('components/bottom_nav') %>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
